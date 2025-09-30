@@ -21,16 +21,28 @@ class Ssml {
 
   String get buildSsml {
     return "<speak version='1.0' "
-        "xmlns='http://www.w3.org/2001/10/synthesis' "
+        "xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' "
         "xml:lang='${voice.locale}'>"
-        "<voice xml:lang='${voice.locale}' "
-        "xml:gender='${voice.gender}' "
-        "${style != null ? "xml:style='${style!.styleName}' " : ""}"
-        "${role != null ? "xml:role='${role!.name}' " : ""}"
-        "${style?.styleDegree != null ? "xml:styledegree='${style!.styleDegree}' " : ""}"
+        "<voice "
         "name='${voice.shortName}'>"
+        "${style != null ? "<mstts:express-as style='${style!.styleName}' styledegree='${style!.styleDegree}'>" : ""}"
         "<prosody rate='$speed'>"
         "$text"
-        "<\/prosody><\/voice><\/speak>";
+        "<\/prosody>${style != null ? "<\/mstts:express-as>" : ""}<\/voice><\/speak>";
   }
+
+  //String get buildSsml {
+//     return "<speak version='1.0' "
+//         "xmlns='http://www.w3.org/2001/10/synthesis' "
+//         "xml:lang='${voice.locale}'>"
+//         "<voice xml:lang='${voice.locale}' "
+//         "xml:gender='${voice.gender}' "
+//         "${style != null ? "xml:style='${style!.styleName}' " : ""}"
+//         "${role != null ? "xml:role='${role!.name}' " : ""}"
+//         "${style?.styleDegree != null ? "xml:styledegree='${style!.styleDegree}' " : ""}"
+//         "name='${voice.shortName}'>"
+//         "<prosody rate='$speed'>"
+//         "$text"
+//         "<\/prosody><\/voice><\/speak>";
+//   }
 }
